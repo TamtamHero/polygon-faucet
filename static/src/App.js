@@ -21,7 +21,7 @@ class App extends Component {
                 <img src="./matic-logo-square.svg" />
               </figure>
               </center>
-              <h1 className="title">MATIC-ETH Faucet</h1>
+              <h1 className="title">MATIC Faucet</h1>
 
               <div class = "columns">
                 <div class = "column">
