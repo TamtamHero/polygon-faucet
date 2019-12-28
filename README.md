@@ -39,17 +39,17 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 ### Network Name
 |name|network|
 |---|---|---|
-|testnet2|`https://testnet2.matic.network`|
-|testnet3|`https://testnetv3.matic.network`|
-|alpha|`https://alpha.ethereum.matic.network`|
-|beta2|`https://betav2.matic.network`|
+|`testnet2`|`https://testnet2.matic.network`|
+|`testnet3`|`https://testnetv3.matic.network`|
+|`alpha`|`https://alpha.ethereum.matic.network`|
+|`beta2`|`https://betav2.matic.network`|
 
 ### Token
-|  |  |  |  |  |
-|---|---|---|---|---|
-|  |  |  |  |  |
-|  |  |  |  |  |
-|  |  |  |  |  |
+|name|token|
+|---|---|
+|`maticeth`|the native coin on these testnets|
+|`testerc20`|TEST erc20 token|
+
 
 ```ethereum address``` your ethereum address
 
