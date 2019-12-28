@@ -8,13 +8,22 @@ import timespan from "timespan";
 class FaucetRequest extends Component {
   constructor(props) {
     super(props);
-    this.state = { targetAccount: "", requestrunning: false };
-
+    this.state = { 
+      targetAccount: "", 
+      selectedNetwork: "",
+      selectedToken:"maticeth",
+      requestrunning: false 
+    };
+    this.radioChange = this.radioChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.clearMessages = this.clearMessages.bind(this);
   }
-
+  radioChange(e) {
+    this.setState ({
+      selectedNetwork: e.currentTarget.value
+    })
+  }
   handleChange(event) {
     this.setState({ targetAccount: event.target.value });
   }
@@ -28,7 +37,7 @@ class FaucetRequest extends Component {
     if (Eth.isAddress(this.state.targetAccount)) {
       this.setState({ requestrunning: true });
 
-      let apiUrl = config.get("apiurl") + "/donate/" + this.state.targetAccount;
+      let apiUrl = config.get("apiurl") +"/"+ this.state.selectedNetwork + "/" + this.state.selectedToken + "/" + this.state.targetAccount;
       axios
         .get(apiUrl)
         .then(response => {
@@ -36,11 +45,9 @@ class FaucetRequest extends Component {
           if (response.status === 200) {
             this.setState({
               faucetresponse: {
-                address: response.data.address,
-                amount: response.data.amount,
-                txhash: response.data.txhash,
+                txhash: response.data.hash,
                 etherscanlink:
-                  config.get("etherscanroot") + "/tx/" + response.data.txhash
+                  config.get(this.state.selectedNetwork) + "/tx/" + response.data.hash
               }
             });
             return;
@@ -115,6 +122,30 @@ class FaucetRequest extends Component {
       <div className="">
         <section className="section">
           <div className="container bottompadding">
+          <div>
+            
+            <input type="radio"
+                   value="testnet2"
+                   checked={this.state.selectedNetwork === "testnet2"}
+                   onChange={this.radioChange} />&nbsp;Testnet2
+    &nbsp;
+            <input type="radio"
+                   value="testnet3"
+                   checked={this.state.selectedNetwork === "testnet3"}
+                   onChange={this.radioChange}/>&nbsp;Testnet3
+    &nbsp;
+            <input type="radio"
+                   value="alpha"
+                   checked={this.state.selectedNetwork === "alpha"}
+                   onChange={this.radioChange} />&nbsp;Alpha
+    &nbsp;
+            <input type="radio"
+                   value="beta2"
+                   checked={this.state.selectedNetwork === "beta2"}
+                   onChange={this.radioChange}/>&nbsp;BetaMainnetV2
+            
+            {/* <h3>this.state.selectedNetwork: {this.state.selectedNetwork}</h3> */}
+          </div>
             <form onSubmit={this.handleSubmit}>
               <div className="field">
                 <label className="label">
@@ -136,7 +167,7 @@ class FaucetRequest extends Component {
                     disabled={this.state.requestrunning}
                     className="button is-link"
                   >
-                    Send me test Ether
+                    Send me MATIC-ETH
                   </button>
                 </div>
               </div>

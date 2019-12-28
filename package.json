@@ -16,7 +16,8 @@
     "hooked-web3-provider": "1.0.0",
     "lodash": "4.11.1",
     "mkdirp": "^0.5.1",
-    "web3": "0.15.3"
+    "web3": "^1.2.4",
+    "web3-hdwallet-provider": "^1.0.4-fix2"
   },
   "devDependencies": {
     "level": "^3.0.2"

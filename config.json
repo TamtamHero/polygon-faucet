@@ -1,0 +1,46 @@
+{
+    "httpport": 3000,
+    "payoutfrequencyinsec":60,
+    "networks": {
+        "testnet2": {
+            "rpc":"https://testnet2.matic.network",
+            "explorer": "https://explorer.testnet2.matic.network/address/",
+            "privateKey": "",
+            "tokens":{
+                "maticeth": {
+                    "payoutamountinether":0.1
+                }
+            }
+        },
+        "testnet3": {
+            "rpc":"https://testnetv3.matic.network",
+            "explorer": "https://explorer.testnetv3.matic.network/address/",
+            "privateKey": "",
+            "tokens":{
+                "maticeth": {
+                    "payoutamountinether":0.1
+                }
+            }
+        },
+        "alpha": {
+            "rpc":"https://alpha.ethereum.matic.network",
+            "explorer": "https://alpha-mainnet.explorer.matic.network",
+            "privateKey": "",
+            "tokens":{
+                "maticeth": {
+                    "payoutamountinether":0.1
+                }
+            }
+        },
+        "beta2": {
+            "rpc":"https://betav2.matic.network",
+            "explorer": "https://betav2-explorer.matic.network",
+            "privateKey": "",
+            "tokens":{
+                "maticeth": {
+                    "payoutamountinether":0.1
+                }
+            }
+        }
+    }
+}

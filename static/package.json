@@ -9,7 +9,10 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-global-configuration": "^1.4.0",
+    "react-json-to-table": "^0.1.5",
     "react-number-format": "^3.5.1",
+    "react-radio-buttons": "^1.2.2",
+    "react-radio-group": "^3.0.3",
     "timespan": "^2.3.0"
   },
   "scripts": {
