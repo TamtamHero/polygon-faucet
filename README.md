@@ -1,25 +1,27 @@
-# locals-faucetserver
+# Matic-ETH faucet server
 
-An Ethereum faucet with a React frontend and a REST API. Works on any network you configure (and fund the faucet account ofcourse).
+built upon https://github.com/sponnet/locals-faucetserver.
 
-# prerequisites
+two lists are maintained: 
 
-- A running local GETH node. ( or access to a node like Infura ) with RPC-JSON enabled.
+`greylist` - an account and the ip is greylisted for `10 ms` (increase for production) as soon as one request is completed.
+
+`blacklist` - an account/ip can be blacklisted indefinitely.
 
 # installing
 
-
 ```
-cd locals-faucetserver
+cd matic-faucets
 npm install
 cd static
+npm install
 yarn build
 cd ..
 ```
 
 ## Configuring the faucet API
 
-Create a lightwallet ```wallet.json```
+create a file `.secret` and enter the seed phrase of your wallet
 
 ```
 node mkwallet.js test > wallet.json
@@ -27,18 +29,20 @@ node mkwallet.js test > wallet.json
 
 You can change `test` to whatever the password is that you want to encrypt your wallet with.
 
+the wallet uses hd path `m/44'/60'/0'/0`
+
 Create a config file ```config.json```
 
 ```
 {
-	"etherscanroot": "http://testnet.etherscan.io/address/",
+	"etherscanroot": "https://explorer.testnet2.matic.network/address/",
 	"payoutfrequencyinsec": 60,
 	"payoutamountinether": 0.1,
 	"queuesize": 5,
 	"walletpwd": "test",
 	"httpport": 3000,
 	"web3": {
-		"host": "http://<YOUR ETH NODE>:8545"
+		"host": "https://testnet2.matic.network"
 	}
 }
 ```
@@ -54,17 +58,19 @@ node index.js
 
 edit the file `static/src/config.js` and specify the base URL for your API
 
+```
+const config = {
+  apiurl: "http://localhost:3000",
+  etherscanroot: "https://explorer.testnet2.matic.network"
+};
 
-
-# Demo
-
-You can access our Ropsten testnet faucet at:
-https://faucet.ropsten.be/
+export default config;
+```
 
 # API
 
 ## Endpoint
-```GET https://faucet.ropsten.be/donate/{ethereum address}```
+```GET https://<FAUCET-URL>/donate/{ethereum address}```
 
 ## Request parameters
 ```ethereum address``` your ethereum address
