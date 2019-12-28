@@ -62,7 +62,7 @@ class FaucetInfo extends Component {
             />
             ).
           </p>
-          <p>
+          {/* <p>
             Example command line: wget {config.get("apiurl")}
             /donate/&lt;your ethereum address&gt; <br />
             <a
@@ -71,7 +71,7 @@ class FaucetInfo extends Component {
             >
               API docs
             </a>
-          </p>
+          </p> */}
         </div>
       </section>
     );

@@ -13,17 +13,50 @@ class App extends Component {
   render() {
     return (
       <div>
-        <section className="hero is-primary">
+        <section className="hero is-light">
           <div className="hero-body">
             <div className="container">
-              <h1 className="title">Ropsten Ethereum Faucet</h1>
+              <center>
+              <figure class="image is-128x128">
+                <img src="./matic-logo-square.svg" />
+              </figure>
+              </center>
+              <h1 className="title">MATIC-ETH Faucet</h1>
+
+              <div class = "columns">
+                <div class = "column">
+                <span class = "label-for-buttons">Choose Network:</span>
+                <div class="buttons">
+                  <button class="button is-rounded is-focused is-medium is-info is-outlined">Testnet v2</button>
+                  <button class="button is-rounded is-medium is-info is-outlined" disabled>Testnet v3</button>
+                  <button class="button is-rounded is-medium is-info is-outlined" disabled>Beta v2</button>
+                  <button class="button is-rounded is-medium is-info is-outlined" disabled>Alpha</button>
+                </div>
+                </div>
+                <div class = "column">
+                <span class = "label-for-buttons">Choose Token:</span>
+                <div class="buttons">
+                  <button class="button is-rounded is-focused is-medium is-info is-outlined">MATIC-ETH</button>
+                  <button class="button is-rounded is-medium is-info is-outlined" disabled>Test (ERC20)</button>
+                  <button class="button is-rounded is-medium is-info is-outlined" disabled>Test (ERC721)</button>
+                </div>
+                </div>
+              </div>
+              
+              
             </div>
           </div>
         </section>
         
           <div className="container">
-            <FaucetRequest />
-            <FaucetInfo />
+            <div class = "columns">
+              <div class = "column">
+              <FaucetRequest />
+              </div>
+              <div class = "column">
+              <FaucetInfo />
+              </div>
+            </div>
           </div>
        
       </div>

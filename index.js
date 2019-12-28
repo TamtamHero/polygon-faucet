@@ -14,11 +14,10 @@ const dbQueue = level(require("os").homedir() + "/.ethfaucetssl/queue");
 const dbExceptions = level(
   require("os").homedir() + "/.ethfaucetssl/exceptions"
 );
-const greylistduration = 1000 * 60 * 60 * 24;
+const greylistduration = 10;
 
 var faucet_keystore = JSON.stringify(require("./wallet.json"));
-
-var secretSeed = lightwallet.keystore.generateRandomSeed();
+var hdPath = `m/44'/60'/0'/0`
 
 // check for valid Eth address
 function isAddress(address) {
@@ -65,9 +64,9 @@ lightwallet.keystore.deriveKeyFromPassword(config.walletpwd, function(
     callback(null, config.walletpwd);
   };
 
-  console.log("Wallet initted addr=" + keystore.getAddresses()[0]);
+  console.log("Wallet initted addr=" + keystore.getAddresses(hdPath)[0]);
 
-  account = fixaddress(keystore.getAddresses()[0]);
+  account = fixaddress(keystore.getAddresses(hdPath)[0]);
 
   //start webserver...
   app.listen(config.httpport, function() {
