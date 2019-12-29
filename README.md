@@ -7,6 +7,8 @@ server check frequency: 10 seconds
 
 address and ip are 'greylisted' right after a successful transaction - for 60 seconds. greylists are reset every 10 seconds.
 
+![screenshot](screen.png)
+
 # installing
 
 > Use Node v8.16.2 (`nvm use 8`)
