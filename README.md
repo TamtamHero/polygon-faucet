@@ -40,7 +40,7 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 
 ```GET https://<FAUCET-URL>/info```
 
-```GET https://<FAUCET-URL>/<NETWORK-NAME>/<TOKEN>/{ethereum address}```
+```GET https://<FAUCET-URL>/{network name}/{token}/{ethereum address}```
 
 ## Request parameters
 
@@ -65,6 +65,13 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 ```
 { 
 	hash: 0x2323... 
+}
+```
+```
+{
+	err: {
+		...
+	}
 }
 ```
 * `hash` transaction hash 
