@@ -1,10 +1,11 @@
 # Matic-ETH faucet server
 
+built upon: https://github.com/sponnet/locals-faucetserver
+
 supports matic-eth transfers to (pay out amount `0.1`) beta2, alpha, testnet2 and testnet3
 
-payout frequency: 60 seconds
-
-server check frequency: 10 seconds
+- payout frequency: 60 seconds
+- server check frequency: 10 seconds
 
 (configured in `/config.json`)
 
@@ -17,12 +18,11 @@ address and ip are 'greylisted' right after a successful transaction - for 60 se
 > Use Node v8.16.2 (`nvm use 8`)
 
 ```
-cd matic-faucet
-npm install
-cd static
-npm install
-yarn build
-cd ..
+$ git clone https://github.com/nglglhtr/matic-faucet
+$ cd matic-faucet && npm install
+$ cd static && npm install
+$ yarn build
+$ cd ..
 ```
 
 ## Configuring the faucet API
