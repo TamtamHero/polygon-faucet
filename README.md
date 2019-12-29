@@ -9,6 +9,8 @@ address and ip are 'greylisted' right after a successful transaction - for 60 se
 
 # installing
 
+> Use Node v8.16.2 (`nvm use 8`)
+
 ```
 cd matic-faucet
 npm install
