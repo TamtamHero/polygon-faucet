@@ -22,8 +22,14 @@ class App extends Component {
         </section>
         
           <div className="container">
-              <FaucetRequest />
-              <FaucetInfo />
+            <div class = "columns">
+              <div class = "column">
+                <FaucetRequest />
+              </div>
+              <div class = "column">
+                <FaucetInfo />
+              </div>
+            </div>
           </div>
        
       </div>

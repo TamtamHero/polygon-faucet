@@ -1,6 +1,11 @@
 # Matic-ETH faucet server
 
 supports matic-eth transfers to (pay out amount `0.1`) beta2, alpha, testnet2 and testnet3
+payout frequency: 60 seconds
+server check frequency: 10 seconds
+(configured in `config.json`)
+
+address and ip are 'greylisted' right after a successful transaction - for 60 seconds. greylists are reset every 10 seconds.
 
 # installing
 
@@ -31,12 +36,15 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 # API
 
 
-## Endpoint
+## Endpoints
+
+```GET https://<FAUCET-URL>/info```
+
 ```GET https://<FAUCET-URL>/<NETWORK-NAME>/<TOKEN>/{ethereum address}```
 
 ## Request parameters
 
-### Network Name
+- ### Network Name
 |name|network|
 |---|---|
 |`testnet2`|`https://testnet2.matic.network`|
@@ -44,14 +52,13 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 |`alpha`|`https://alpha.ethereum.matic.network`|
 |`beta2`|`https://betav2.matic.network`|
 
-### Token
+- ### Token
 |name|token|
 |---|---|
 |`maticeth`|the native coin on these testnets|
-|`testerc20`|TEST erc20 token|
 
 
-```ethereum address``` your ethereum address
+- ```ethereum address``` your ethereum address
 
 
 ## Response format
@@ -60,19 +67,10 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 	hash: 0x2323... 
 }
 ```
-* ```hash``` transaction hash 
+* `hash` transaction hash 
 
 ## HTTP Return / error codes
 
-* ```200``` : Request OK
-
-
-
-
-
-
-
-
-
-
-
+* `200` : Request OK
+* `400` : Invalid address
+* `500` : error (greylisted/ tx error)

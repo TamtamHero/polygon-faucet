@@ -3,7 +3,7 @@ import "./FaucetRequest.css";
 import Eth from "ethjs";
 import config from "react-global-configuration";
 import axios from "axios";
-import timespan from "timespan";
+// import timespan from "timespan";
 
 class FaucetRequest extends Component {
   constructor(props) {
@@ -64,8 +64,8 @@ class FaucetRequest extends Component {
             });
             return;
           }
-          if (error.response.status === 403) {
-            let t = new timespan.TimeSpan(error.response.data.duration, 0, 0);
+          if (error.response.status === 500) {
+            let t = Math.ceil(error.response.data.err.duration / 1000);
             this.setState({
               fauceterror: {
                 message: error.response.data.message,
@@ -207,8 +207,7 @@ class FaucetRequest extends Component {
                   {this.state.fauceterror.timespan ? (
                     <span>
                       You are greylisted for another{" "}
-                      {this.state.fauceterror.timespan.hours} hours and{" "}
-                      {this.state.fauceterror.timespan.minutes} minutes.
+                      {this.state.fauceterror.timespan} seconds.
                     </span>
                   ) : (
                     <span />

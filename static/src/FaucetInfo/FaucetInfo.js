@@ -44,9 +44,12 @@ class FaucetInfo extends Component {
       <section className="section">
         <div className="content has-text-centered has-text-weight-light">
           <p>
-            MATIC-ETH faucet. Select network and enter your address.
+            MATIC-ETH faucet status:
             <br />
-            Faucet Status:
+            <p>
+              Greylist duration: {this.state.faucetinfo.greylistdurationinsec} sec
+            </p>
+            <br />
             <JsonToTable json= {this.state.faucetinfo.balances} />
           </p>
           <p>
@@ -54,7 +57,7 @@ class FaucetInfo extends Component {
             /donate/&lt;your ethereum address&gt; <br />
             <a
               target="_new"
-              href="#"
+              href="https://github.com/nglglhtr/matic-faucet/#api"
             >
               API docs
             </a>

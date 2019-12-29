@@ -1,6 +1,7 @@
 {
     "httpport": 3000,
-    "payoutfrequencyinsec":60,
+    "checkfreqinsec": 10,
+    "greylistdurationinsec": 60,
     "networks": {
         "testnet2": {
             "rpc":"https://testnet2.matic.network",

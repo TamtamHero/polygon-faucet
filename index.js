@@ -1,19 +1,44 @@
 var express = require('express')
 var app = express();
 
-const mkdirp = require("mkdirp");
 var Web3 = require("web3");
 var config = require("./config.json");
 var cors = require("cors");
+
+const mkdirp = require("mkdirp");
 const level = require("level");
 
-mkdirp.sync(require("os").homedir() + "/.ethfaucetssl/queue");
-mkdirp.sync(require("os").homedir() + "/.ethfaucetssl/exceptions");
-const dbQueue = level(require("os").homedir() + "/.ethfaucetssl/queue");
+mkdirp.sync(require("os").homedir() + "/.maticfaucet/exceptions");
+
 const dbExceptions = level(
-  require("os").homedir() + "/.ethfaucetssl/exceptions"
+  require("os").homedir() + "/.maticfaucet/exceptions"
 );
-const greylistduration = 10;
+
+const greylistduration = config.greylistdurationinsec * 1000; // time in ms
+
+// check for valid Eth address
+function isAddress(address) {
+    return /^(0x)?[0-9a-f]{40}$/i.test(address);
+}
+
+// strip any spaces and add 0x
+function fixaddress(address) {
+    // Strip all spaces
+    address = address.replace(" ", "");
+    // Address lowercase
+    address = address.toLowerCase();
+    //console.log("Fix address", address);
+    if (!strStartsWith(address, "0x")) {
+      return "0x" + address;
+    }
+    return address;
+}
+
+// helper
+function strStartsWith(str, prefix) {
+    return str.indexOf(prefix) === 0;
+}
+
 let web3Objects = [];
 
 for (let network in config.networks) {
@@ -54,6 +79,7 @@ app.listen(config.httpport, function() {
 })
 
 app.use(cors());
+
 //frontend app serving directory
 app.use(express.static("static/build"));
 
@@ -61,16 +87,73 @@ app.use(express.static("static/build"));
 app.get('/info', function(req, res) {
     var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     console.log("client IP=", ip);
-    // var ethbalance = -1;
 
     getFaucetBalance().then((r) => {
         res.status(200).json({
-        payoutfreq: config.payoutfrequencyinsec,
-        balances: r
+            checkfreqinsec: config.checkfreqinsec,
+            greylistdurationinsec: config.greylistdurationinsec,
+            balances: r
         })
     })
+
 })
-// app.get("/testnet2/testerc20/:address")
+
+function getException(address) {
+    return new Promise((resolve, reject) => {
+        dbExceptions.get(address, function(err, value) {
+            if (err) {
+                if (err.notFound) {
+                    return resolve();
+                }
+                return reject(err)
+            }
+            value = JSON.parse(value);
+            resolve(value);
+        })
+    })
+}
+
+function setException(address, reason){
+    console.log("adding", address, "to greylist")
+    return new Promise((resolve, reject) => {
+        dbExceptions.put(
+            address, 
+            JSON.stringify({
+                created: Date.now(),
+                reason: reason, 
+                address: address
+            }),
+            function(err) {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            }
+        )
+    })
+}
+
+function cleanupException() {
+    var stream = dbExceptions.createReadStream({
+        keys: true,
+        values: true
+    }).on("data", item => {
+        const value = JSON.parse(item.value);
+        if(value.reason === "greylist") {
+            if(value.created < Date.now() - greylistduration) {
+                dbExceptions.del(item.key, err => {
+                    console.log("removed ", item.key, "from greylist.");
+                })
+            }
+        }
+    })
+}
+
+// exception monitor
+setInterval(() => {
+    cleanupException();
+}, config.checkfreqinsec * 1000);
+
 app.get("/testnet2/maticeth/:address", function(req, res) {
     var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     console.log("client IP=", ip);
@@ -79,14 +162,28 @@ app.get("/testnet2/maticeth/:address", function(req, res) {
     var amount = config.networks.testnet2.tokens.maticeth.payoutamountinether
     var network = 0
 
-    // transfer funds
-    console.log('transferring',amount, 'Matic ETH to', address)
-
-    transferEth(address, amount, network).then((r) => {
-        res.status(200).json({
+    if (!isAddress(fixaddress(address))) {
+        // invalid addr
+        console.log("INVALID ADDR. 400")
+        return res.status(400).json({
+            msg: "invalid address."
+        })
+    }
+    
+    startTransfer(address, ip, amount, network).then((r) => {
+        // successful transaction
+        console.log("OK. 200")
+        return res.status(200).json({
             hash: r
         });
+    }).catch(e => {
+        // either tx error/ greylisted
+        console.log("ERROR:500")
+        return res.status(500).json({
+            err: e
+        });
     })
+
 })
 
 app.get("/testnet3/maticeth/:address", function(req, res) {
@@ -97,12 +194,25 @@ app.get("/testnet3/maticeth/:address", function(req, res) {
     var amount = config.networks.testnet3.tokens.maticeth.payoutamountinether
     var network = 1
 
-    // transfer funds
-    console.log('transferring',amount, 'Matic ETH to', address)
-
-    transferEth(address, amount, network).then((r) => {
-        res.status(200).json({
+    if (!isAddress(fixaddress(address))) {
+        // invalid addr
+        console.log("INVALID ADDR. 400")
+        return res.status(400).json({
+            msg: "invalid address."
+        })
+    }
+    
+    startTransfer(address, ip, amount, network).then((r) => {
+        // successful transaction
+        console.log("OK. 200")
+        return res.status(200).json({
             hash: r
+        });
+    }).catch(e => {
+        // either tx error/ greylisted
+        console.log("ERROR:500")
+        return res.status(500).json({
+            err: e
         });
     })
 })
@@ -115,12 +225,25 @@ app.get("/alpha/maticeth/:address", function(req, res) {
     var amount = config.networks.testnet3.tokens.maticeth.payoutamountinether
     var network = 2
 
-    // transfer funds
-    console.log('transferring',amount, 'Matic ETH to', address)
-
-    transferEth(address, amount, network).then((r) => {
-        res.status(200).json({
+    if (!isAddress(fixaddress(address))) {
+        // invalid addr
+        console.log("INVALID ADDR. 400")
+        return res.status(400).json({
+            msg: "invalid address."
+        })
+    }
+    
+    startTransfer(address, ip, amount, network).then((r) => {
+        // successful transaction
+        console.log("OK. 200")
+        return res.status(200).json({
             hash: r
+        });
+    }).catch(e => {
+        // either tx error/ greylisted
+        console.log("ERROR:500")
+        return res.status(500).json({
+            err: e
         });
     })
 })
@@ -133,15 +256,58 @@ app.get("/beta2/maticeth/:address", function(req, res) {
     var amount = config.networks.testnet3.tokens.maticeth.payoutamountinether
     var network = 3
 
-    // transfer funds
-    console.log('transferring',amount, 'Matic ETH to', address)
-
-    transferEth(address, amount, network).then((r) => {
-        res.status(200).json({
+    if (!isAddress(fixaddress(address))) {
+        // invalid addr
+        console.log("INVALID ADDR. 400")
+        return res.status(400).json({
+            msg: "invalid address."
+        })
+    }
+    
+    startTransfer(address, ip, amount, network).then((r) => {
+        // successful transaction
+        console.log("OK. 200")
+        return res.status(200).json({
             hash: r
+        });
+    }).catch(e => {
+        // either tx error/ greylisted
+        console.log("ERROR:500")
+        return res.status(500).json({
+            err: e
         });
     })
 })
+
+function startTransfer(address, ip, amount, network) {
+    return new Promise ((resolve, reject) => {
+        Promise.all([getException(address), getException(ip)]).then(
+            ([addressException, ipException]) => {
+                var exception = addressException || ipException;
+    
+                if (exception) {
+                    console.log(exception.address, "is on the greylist");
+                    var values = {
+                        address: exception.address,
+                        message: "you are greylisted",
+                        duration: (exception.created + greylistduration) - Date.now()
+                    }
+                    reject(values);
+                } else {
+                    // transfer funds
+                    console.log('transferring',amount, 'Matic ETH to', address)
+                    transferEth(address, amount, network).then((r) => {
+                        Promise.all([setException(ip, 'greylist'), setException(address, 'greylist')]).then(() => {
+                            resolve(r)
+                        })
+                    }).catch(e => {
+                        reject(e)
+                    })
+                }
+            }
+        )
+    })
+}
 
 async function transferEth(_to, _amount, network) {
     console.log('---start tx---')
