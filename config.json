@@ -6,40 +6,56 @@
         "testnet2": {
             "rpc":"https://testnet2.matic.network",
             "explorer": "https://explorer.testnet2.matic.network/address/",
-            "privateKey": "",
+            "privateKey": "0x9B28F36FBD67381120752D6172ECDCF10E06AB2D9A1367AAC00CDCD6AC7855D3",
             "tokens":{
                 "maticeth": {
-                    "payoutamountinether":0.1
+                    "payoutamount": 0.1
+                },
+                "testErc20": {
+                    "payoutamount": 1,
+                    "tokenAddress": "0xc82c13004c06E4c627cF2518612A55CE7a3Db699"
                 }
             }
         },
-        "testnet3": {
+        "testnetv3": {
             "rpc":"https://testnetv3.matic.network",
             "explorer": "https://explorer.testnetv3.matic.network/address/",
-            "privateKey": "",
+            "privateKey": "0x9B28F36FBD67381120752D6172ECDCF10E06AB2D9A1367AAC00CDCD6AC7855D3",
             "tokens":{
                 "maticeth": {
-                    "payoutamountinether":0.1
+                    "payoutamount":0.1
+                },
+                "testErc20": {
+                    "payoutamount": 1,
+                    "tokenAddress": "0x9a93c912F4eFf0254d178a18ACD980C1B05b57b0"
                 }
             }
         },
-        "alpha": {
+        "alpha.ethereum": {
             "rpc":"https://alpha.ethereum.matic.network",
             "explorer": "https://alpha-mainnet.explorer.matic.network",
-            "privateKey": "",
+            "privateKey": "0x9B28F36FBD67381120752D6172ECDCF10E06AB2D9A1367AAC00CDCD6AC7855D3",
             "tokens":{
                 "maticeth": {
-                    "payoutamountinether":0.1
+                    "payoutamount":0.1
+                },
+                "testErc20": {
+                    "payoutamount": 1,
+                    "tokenAddress": "0x9d3F6E51A7C485381AFD53802fF828b083DB403C"
                 }
             }
         },
-        "beta2": {
+        "betav2": {
             "rpc":"https://betav2.matic.network",
             "explorer": "https://betav2-explorer.matic.network",
-            "privateKey": "",
+            "privateKey": "0x9B28F36FBD67381120752D6172ECDCF10E06AB2D9A1367AAC00CDCD6AC7855D3",
             "tokens":{
                 "maticeth": {
-                    "payoutamountinether":0.1
+                    "payoutamount":0.1
+                },
+                "testErc20": {
+                    "payoutamount": 1,
+                    "tokenAddress": "0xA248F9eB9eDe9629Fcc05C19131b0690A51851Bf"
                 }
             }
         }

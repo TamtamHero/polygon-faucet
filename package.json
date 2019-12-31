@@ -20,6 +20,8 @@
     "web3-hdwallet-provider": "^1.0.4-fix2"
   },
   "devDependencies": {
+    "bignumber.js": "^9.0.0",
+    "bn.js": "^5.1.1",
     "level": "^3.0.2"
   }
 }
