@@ -45,9 +45,9 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 
 ## Endpoints
 
-```GET https://<FAUCET-URL>/info```
+### ```GET https://<FAUCET-URL>/info```
 
-### Response
+#### Response
 ```
 {
 	checkfreqinsec: ...,
@@ -64,9 +64,9 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 }
 ```
 
-```GET https://<FAUCET-URL>/tokenInfo```
+### ```GET https://<FAUCET-URL>/tokenInfo```
 
-### Response 
+#### Response 
 
 ```
 {
@@ -82,31 +82,31 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 }
 ```
 
-```GET https://<FAUCET-URL>/{network name}/{token}/{ethereum address}```
+### ```GET https://<FAUCET-URL>/{network name}/{token}/{ethereum address}```
 
-### Request parameters
+#### Request parameters
 
-- ### Network Name
-|name|network|
+- #### Network Name
+|name|RPC|
 |---|---|
 |`testnet2`|`https://testnet2.matic.network`|
-|`testnet3`|`https://testnetv3.matic.network`|
-|`alpha`|`https://alpha.ethereum.matic.network`|
-|`beta2`|`https://betav2.matic.network`|
+|`testnetv3`|`https://testnetv3.matic.network`|
+|`alpha.ethereum`|`https://alpha.ethereum.matic.network`|
+|`betav2`|`https://betav2.matic.network`|
 |`ropsten`|`infura node url`|
 
-- ### token
+- #### token
 |name|token|
 |---|---|
 |`maticeth`|the native coin on these testnets|
 |`testErc20`|TEST token - can be used to deposit/withdraw from Matic networks|
 
 
-- ### ethereum address
+- #### ethereum address
 your ethereum address
 
 
-## Response format
+#### Response format
 Status code: 200
 ```
 { 
@@ -122,6 +122,11 @@ Status code: 500
 }
 ```
 * `hash` transaction hash 
+
+## Example Usage
+
+`curl http://localhost:3000/ropsten/testErc20/0x96C42C56fdb78294F96B0cFa33c92bed7D75F96a`
+
 
 ## HTTP Return / error codes
 
