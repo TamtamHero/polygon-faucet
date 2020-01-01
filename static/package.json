@@ -22,6 +22,9 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "react-scripts": "^1.1.4"
+    "react-data-table-component": "^6.0.4",
+    "react-scripts": "^1.1.4",
+    "styled-components": "^4.4.1",
+    "ts-react-json-table": "^0.1.2"
   }
 }

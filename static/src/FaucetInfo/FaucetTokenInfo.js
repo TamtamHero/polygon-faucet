@@ -9,42 +9,43 @@ const columns = [
     name: 'Network',
     selector: 'network',
     sortable: true,
-    maxWidth: '50px'
+    maxWidth: '100px'
   },
   {
-    name: 'Account',
-    selector: 'account',
-    // maxWidth: '400px',
-    // allowOverflow: true,
+    name: 'Matic ETH',
+    selector: 'payoutEth',
+    maxWidth: '100px'
+  },
+  {
+    name: 'Test ERC20',
+    selector: 'payoutTestErc20',
+    maxWidth: '100px',
     wrap: true
   },
   {
-    name: 'ETH Balance',
-    maxWidth: '100px',
-    selector: 'balanceEth'
-  }, 
-  {
-    name: 'TERC20 Balance',
-    maxWidth: '100px',
-    selector: 'balanceTestErc20'
+    name: 'TEST ERC20 Token Address',
+    selector: 'testErc20Address'
   }
 ];
 
-class FaucetInfo extends Component {
+class FaucetTokenInfo extends Component {
   // Adds a class constructor that assigns the initial state values:
   constructor() {
     super();
     this.state = {
-      faucetinfo: null
+      faucettokeninfo: null,
+      networks: null
     };
   }
   // This is called when an instance of a component is being created and inserted into the DOM.
   componentWillMount() {
     axios
-      .get(config.get("apiurl") + "/info")
+      .get(config.get("apiurl") + "/tokenInfo")
       .then(response => {
-        this.setState({ faucetinfo: response.data });
-        localStorage.setItem("faucetinfo", response.data);
+        this.setState({ 
+          faucettokeninfo: response.data.tokenInfo 
+        });
+        localStorage.setItem("faucettokeninfo", response.data.tokenInfo);
       })
       // Catch any error here
       .catch(error => {
@@ -55,8 +56,8 @@ class FaucetInfo extends Component {
   componentDidMount() {
     if (!navigator.onLine) {
       try {
-        let f = JSON.parse(localStorage.getItem("faucetinfo"));
-        this.setState({ faucetinfo: f });
+        // let f = JSON.parse(localStorage.getItem("faucettokeninfo"));
+        // this.setState({ faucettokeninfo: f });
       } catch (e) {
         //
       }
@@ -64,16 +65,16 @@ class FaucetInfo extends Component {
   }
 
   render() {
-    if (!this.state.faucetinfo) return null;
+    if (!this.state.faucettokeninfo) return null;
     return (
       <DataTable
-        title="Faucet Status"
+        title="Token Payout Status"
         columns={columns}
-        data={this.state.faucetinfo.balances}
+        data={this.state.faucettokeninfo}
         dense
       />
     );
   }
 }
 
-export default FaucetInfo;
+export default FaucetTokenInfo;

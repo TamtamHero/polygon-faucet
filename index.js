@@ -16,10 +16,14 @@ const dbEthExceptions = level(
 const dbErc20Exceptions = level(
     require("os").homedir() + "/.maticfaucet/exceptions/erc20"
 );
+// const dbRopstenErc20Exceptions = level(
+//     require('os').homedir() + '/.maticfaucet/exceptions/ropstenErc20'
+// )
 
 const db = {}
 db['maticeth'] = dbEthExceptions
 db['testErc20'] = dbErc20Exceptions
+// db['ropstenTestErc20'] = dbRopstenErc20Exceptions
 
 const greylistduration = config.greylistdurationinsec * 1000; // time in ms
 
@@ -66,7 +70,7 @@ function getEthBalance(web3) {
 }
 function getTestErc20Balance(web3) {
     let host = web3.currentProvider.host
-    let network = host.replace("https://", "").replace(".matic.network", "")
+    let network = host.replace("https://", "").replace(".matic.network", "").replace(".infura.io/v3/70645f042c3a409599c60f96f6dd9fbc", "")
     let tokenContract = new web3.eth.Contract(testErc20TokenAbi,config.networks[network].tokens.testErc20.tokenAddress)
     return tokenContract.methods.balanceOf(web3.eth.accounts.wallet[0].address).call()
 }
@@ -80,13 +84,40 @@ async function getFaucetBalance() {
         let rTest20 = await getTestErc20Balance(web3)
 
         balances.push({
-            "network": web3.currentProvider.host.replace("https://", "").replace(".matic.network", ""),
+            "network": web3.currentProvider.host.replace("https://", "").replace(".matic.network", "").replace(".infura.io/v3/70645f042c3a409599c60f96f6dd9fbc", ""),
             "account": web3.eth.accounts.wallet[0].address,
             "balanceEth": web3.utils.fromWei(rEth, 'ether'),
             "balanceTestErc20": web3.utils.fromWei(rTest20, 'ether') 
         });
     }
     return balances
+}
+
+async function getTokenInfo() {
+    let tokenInfo = []
+
+    for (let network in config.networks) {
+        let _payoutEth
+        let _payoutTestErc20
+        let _testErc20Address
+        
+        for (token in config.networks[network].tokens) {
+            if(token === 'maticeth') _payoutEth = config.networks[network].tokens[token].payoutamount
+            if(token === 'testErc20') {
+                _payoutTestErc20 = config.networks[network].tokens[token].payoutamount
+                _testErc20Address = config.networks[network].tokens[token].tokenAddress
+            }
+        }
+
+        tokenInfo.push({
+            network: network,
+            payoutEth: _payoutEth,
+            payoutTestErc20: _payoutTestErc20,
+            testErc20Address: _testErc20Address
+        })
+    }
+    
+    return tokenInfo
 }
 
 // start webserver
@@ -107,6 +138,16 @@ app.get('/info', function(req, res) {
             checkfreqinsec: config.checkfreqinsec,
             greylistdurationinsec: config.greylistdurationinsec,
             balances: r
+        })
+    })
+})
+
+app.get('/tokenInfo', function (req, res) {
+    var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    console.log("client IP=", ip);
+    getTokenInfo().then((r) => {
+        res.status(200).json({
+            tokenInfo: r
         })
     })
 })
@@ -223,6 +264,36 @@ async function _startTransfer(address, token, amount, network) {
     if (token === 'maticeth') return transferEth(address, amount, network)
     if (token === 'testErc20') return transferTestErc20(address, amount, network)
 }
+
+// async function transferOnRopsten(_to, _amount, token) {
+//     let web3 = web3Objects['ropsten']
+//     let _from = web3.eth.accounts.wallet[0].address
+//     let _gasPrice = await web3.eth.getGasPrice()
+
+//     let tokenAddress = config.networks[network].tokens.testErc20.tokenAddress
+//     let tokenContract = new web3.eth.Contract(testErc20TokenAbi, tokenAddress)
+
+//     let decimals = await tokenContract.methods.decimals().call()
+//     let amt = (_amount * Math.pow(10, decimals)).toString()
+//     let options = {
+//         from: _from,
+//         to: _to,
+//         gas: 314150,
+//         gasPrice: _gasPrice
+//     }
+//     console.log(options);
+//     let r = await tokenContract.methods.transfer(_to, amt)
+//                                .send(options)
+//                                .on('receipt', (receipt) => {
+//                                    console.log(receipt.transactionHash)
+//                                })
+//                                .on('error', (err) => {
+//                                    return Promise.reject(err)
+//                                })
+
+//     console.log('---end tx---')
+//     return Promise.resolve(r.transactionHash)
+// }
 
 async function transferEth(_to, _amount, network) {
     console.log('---start tx---')

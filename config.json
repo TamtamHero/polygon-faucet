@@ -6,7 +6,7 @@
         "testnet2": {
             "rpc":"https://testnet2.matic.network",
             "explorer": "https://explorer.testnet2.matic.network/address/",
-            "privateKey": "0x9B28F36FBD67381120752D6172ECDCF10E06AB2D9A1367AAC00CDCD6AC7855D3",
+            "privateKey": "",
             "tokens":{
                 "maticeth": {
                     "payoutamount": 0.1
@@ -20,7 +20,7 @@
         "testnetv3": {
             "rpc":"https://testnetv3.matic.network",
             "explorer": "https://explorer.testnetv3.matic.network/address/",
-            "privateKey": "0x9B28F36FBD67381120752D6172ECDCF10E06AB2D9A1367AAC00CDCD6AC7855D3",
+            "privateKey": "",
             "tokens":{
                 "maticeth": {
                     "payoutamount":0.1
@@ -34,7 +34,7 @@
         "alpha.ethereum": {
             "rpc":"https://alpha.ethereum.matic.network",
             "explorer": "https://alpha-mainnet.explorer.matic.network",
-            "privateKey": "0x9B28F36FBD67381120752D6172ECDCF10E06AB2D9A1367AAC00CDCD6AC7855D3",
+            "privateKey": "",
             "tokens":{
                 "maticeth": {
                     "payoutamount":0.1
@@ -48,7 +48,7 @@
         "betav2": {
             "rpc":"https://betav2.matic.network",
             "explorer": "https://betav2-explorer.matic.network",
-            "privateKey": "0x9B28F36FBD67381120752D6172ECDCF10E06AB2D9A1367AAC00CDCD6AC7855D3",
+            "privateKey": "",
             "tokens":{
                 "maticeth": {
                     "payoutamount":0.1
@@ -56,6 +56,21 @@
                 "testErc20": {
                     "payoutamount": 1,
                     "tokenAddress": "0xA248F9eB9eDe9629Fcc05C19131b0690A51851Bf"
+                }
+            }
+        },
+        "ropsten": {
+            "rpc": "https://ropsten.infura.io/v3/70645f042c3a409599c60f96f6dd9fbc",
+            "explorer": "https://ropsten.etherscan.io",
+            "privateKey": "",
+            "tokens": {
+                "maticeth": {
+                    "payoutamount":0,
+                    "tokenAddress": null
+                },
+                "testErc20": {
+                    "payoutamount": 1,
+                    "tokenAddress": "0x28C8713DDe7F063Fdc4cA01aB2A8856e0F243Fec"
                 }
             }
         }

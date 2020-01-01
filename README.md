@@ -2,7 +2,7 @@
 
 built upon: https://github.com/sponnet/locals-faucetserver
 
-supports matic-eth transfers to (pay out amount `0.1`) beta2, alpha, testnet2 and testnet3
+supports matic-eth and test-erc20 token transfers to (pay out amount `0.1`) beta2, alpha, testnet2, testnet3, ropsten and eth-mainnet
 
 - payout frequency: 60 seconds
 - server check frequency: 10 seconds
@@ -47,9 +47,44 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 
 ```GET https://<FAUCET-URL>/info```
 
+### Response
+```
+{
+	checkfreqinsec: ...,
+	greylistdurationinsec: ...,
+	balances: [
+		{
+			"network": ...,
+			"account": ...,
+			"balanceEth": ...,
+			"balanceTestErc20": ...
+		},
+		...
+	]
+}
+```
+
+```GET https://<FAUCET-URL>/tokenInfo```
+
+### Response 
+
+```
+{
+	"tokenInfo":[
+		{
+			"network": ...,
+			"payoutEth": ...,
+			"payoutTestErc20": ...,
+			"testErc20Address": ...
+		},
+		...
+	]
+}
+```
+
 ```GET https://<FAUCET-URL>/{network name}/{token}/{ethereum address}```
 
-## Request parameters
+### Request parameters
 
 - ### Network Name
 |name|network|
@@ -58,22 +93,27 @@ edit the file `static/src/config.js` and specify the base URL for your API (and 
 |`testnet3`|`https://testnetv3.matic.network`|
 |`alpha`|`https://alpha.ethereum.matic.network`|
 |`beta2`|`https://betav2.matic.network`|
+|`ropsten`|`infura node url`|
 
-- ### Token
+- ### token
 |name|token|
 |---|---|
 |`maticeth`|the native coin on these testnets|
+|`testErc20`|TEST token - can be used to deposit/withdraw from Matic networks|
 
 
-- ```ethereum address``` your ethereum address
+- ### ethereum address
+your ethereum address
 
 
 ## Response format
+Status code: 200
 ```
 { 
 	hash: 0x2323... 
 }
 ```
+Status code: 500
 ```
 {
 	err: {
