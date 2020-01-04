@@ -207,7 +207,7 @@ setInterval(() => {
     cleanupExceptions('testErc20')
 }, config.checkfreqinsec * 100);
 
-app.get("/:network/:token/:address", function(req, res) {
+app.post("/:network/:token/:address", function(req, res) {
     var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     console.log("client IP=", ip);
     let network = req.params.network 
@@ -264,36 +264,6 @@ async function _startTransfer(address, token, amount, network) {
     if (token === 'maticeth') return transferEth(address, amount, network)
     if (token === 'testErc20') return transferTestErc20(address, amount, network)
 }
-
-// async function transferOnRopsten(_to, _amount, token) {
-//     let web3 = web3Objects['ropsten']
-//     let _from = web3.eth.accounts.wallet[0].address
-//     let _gasPrice = await web3.eth.getGasPrice()
-
-//     let tokenAddress = config.networks[network].tokens.testErc20.tokenAddress
-//     let tokenContract = new web3.eth.Contract(testErc20TokenAbi, tokenAddress)
-
-//     let decimals = await tokenContract.methods.decimals().call()
-//     let amt = (_amount * Math.pow(10, decimals)).toString()
-//     let options = {
-//         from: _from,
-//         to: _to,
-//         gas: 314150,
-//         gasPrice: _gasPrice
-//     }
-//     console.log(options);
-//     let r = await tokenContract.methods.transfer(_to, amt)
-//                                .send(options)
-//                                .on('receipt', (receipt) => {
-//                                    console.log(receipt.transactionHash)
-//                                })
-//                                .on('error', (err) => {
-//                                    return Promise.reject(err)
-//                                })
-
-//     console.log('---end tx---')
-//     return Promise.resolve(r.transactionHash)
-// }
 
 async function transferEth(_to, _amount, network) {
     console.log('---start tx---')
