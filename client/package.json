@@ -1,7 +1,6 @@
 {
-  "name": "faucetserver-react",
+  "name": "maticfaucet-client",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "axios": "^0.18.0",
     "bulma": "^0.7.1",
@@ -9,11 +8,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-global-configuration": "^1.4.0",
-    "react-json-to-table": "^0.1.5",
-    "react-number-format": "^3.5.1",
-    "react-radio-buttons": "^1.2.2",
-    "react-radio-group": "^3.0.3",
-    "timespan": "^2.3.0"
+    "web3": "^1.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,8 +19,7 @@
   "devDependencies": {
     "react-data-table-component": "^6.0.4",
     "react-scripts": "2.1.8",
-    "styled-components": "^4.4.1",
-    "ts-react-json-table": "^0.1.2"
+    "styled-components": "^4.4.1"
   },
   "browserslist": [
     ">0.2%",

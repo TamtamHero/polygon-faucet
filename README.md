@@ -7,7 +7,7 @@ supports matic-eth and test-erc20 token transfers to (pay out amount `0.1`) beta
 - payout frequency: 60 seconds
 - server check frequency: 10 seconds
 
-(configured in `/config.json`)
+(configured in `server/config.json`)
 
 address and ip are 'greylisted' right after a successful transaction - for 60 seconds. greylists are reset every 10 seconds.
 

@@ -128,7 +128,7 @@ app.listen(config.httpport, function() {
 app.use(cors());
 
 //frontend app serving directory
-app.use(express.static("static/build"));
+// app.use(express.static("static/build"));
 
 app.get('/info', function(req, res) {
     var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
@@ -207,7 +207,7 @@ setInterval(() => {
     cleanupExceptions('testErc20')
 }, config.checkfreqinsec * 100);
 
-app.post("/:network/:token/:address", function(req, res) {
+app.get("/:network/:token/:address", function(req, res) {
     var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     console.log("client IP=", ip);
     let network = req.params.network 
