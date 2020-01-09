@@ -2,9 +2,9 @@
 
 built upon: https://github.com/sponnet/locals-faucetserver
 
-supports matic-eth and test-erc20 token transfers to (pay out amount `0.1`) beta2, alpha, testnet2, testnet3, ropsten and eth-mainnet
+supports matic-eth and test-erc20 token transfers to (pay out amount `1` maticEth and `2` test erc20 tokens) beta2, alpha, testnet2, testnet3, ropsten and eth-mainnet
 
-- payout frequency: 60 seconds
+- payout frequency: 120 seconds
 - server check frequency: 10 seconds
 
 (configured in `server/config.json`)
@@ -15,33 +15,28 @@ address and ip are 'greylisted' right after a successful transaction - for 60 se
 
 # installing
 
-> Use Node v8.16.2 (`nvm use 8`)
-
 ```
 $ git clone https://github.com/nglglhtr/matic-faucet
-$ cd matic-faucet && npm install
-$ cd static && npm install
-$ yarn build
+$ cd matic-faucet && cd server && npm install
+$ cd .. && cd client && npm install
 $ cd ..
 ```
 
 ## Configuring the faucet API
 
-edit ```config.json``` in the root directory and add private keys to the accounts for each network.
+edit ```config.json``` in the `server/` directory and add private keys to the accounts for each network.
 
 Start your faucet:
 
 ```
 node index.js
 ```
-head over to `localhost:3000` and test the faucet.
 
 ## Configuring the faucet frontend
 
-edit the file `static/src/config.js` and specify the base URL for your API (and run `yarn build`)
+edit the file `client/src/config.js` and specify the base URL for your API. Run `npm run start`
 
 # API
-
 
 ## Endpoints
 
