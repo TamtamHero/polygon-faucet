@@ -1,4 +1,4 @@
-# Matic-ETH faucet server
+# Polygon mainnet faucet server/frontend
 
 built upon: https://github.com/sponnet/locals-faucetserver and https://github.com/nglglhtr/matic-faucet
 
