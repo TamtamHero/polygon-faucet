@@ -1,5 +1,5 @@
 {
   "apiurl": "http://localhost:3000",
   "explorer": "https://explorer-mainnet.maticvigil.com",
-  "maxAmount": 3000000000000
+  "maxAmount": 500000000000000
 }

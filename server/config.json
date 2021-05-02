@@ -9,7 +9,8 @@
       "privateKey": "0x6c2e7d62cc1160edc0362747d0f2bc03d6a12f94e4fb3c34386eacc1e5a85613",
       "tokens": {
         "matic": {
-          "payoutamount": 0.0005
+          "payoutamount": 0.0005,
+          "maxbalance": 500000000000000
         }
       }
     }

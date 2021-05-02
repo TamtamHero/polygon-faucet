@@ -50,7 +50,8 @@ function App() {
               toast.success("Transaction sent!");
               setTxLink(hash);
             })
-            .catch((error) => toast.error(`${error.toString()} 🙅`))
+            .catch((error) => {
+              toast.error(`${error.response.data.err.message} 🙅`)})
           }
         />
       </div>

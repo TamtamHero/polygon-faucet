@@ -58,6 +58,11 @@ function getEthBalance(web3) {
     return (web3.eth.getBalance(web3.eth.accounts.wallet[0].address))
 }
 
+function getAccountBalance(account) {
+    let web3 = web3Objects["rpc-mainnet"];
+    return (web3.eth.getBalance(account))
+}
+
 async function getFaucetBalance() {
     let balances = [];
     for (let obj in web3Objects) {
@@ -215,12 +220,21 @@ async function startTransfer(ip, address, token, amount, network) {
         console.log(exception.address, "is on the greylist");
         var values = {
             address: exception.address,
-            message: "you are greylisted",
+            message: "This account has already received funds",
             duration: (exception.created + greylistduration) - Date.now()
         }
         return Promise.reject(values)
     }
-    
+
+    let balanceException = await getAccountBalance(address) > config.networks[network].tokens[token].maxbalance;
+    if(balanceException){
+        console.log(address, "has a too high balance");
+        var values = {
+            message: "you already have a sufficient balance to use Polygon network",
+        }
+        return Promise.reject(values)
+    }
+
     let receipt = await _startTransfer(address, token, amount, network)
     
     await setException(address, token)

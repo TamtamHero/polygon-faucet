@@ -41,6 +41,7 @@ export default function AppExplanations() {
     * Swapping assets on [QuickSwap](https://quickswap.exchange/) or [ComethSwap](https://swap.cometh.io/#/swap), the equivalents of `Uniswap` on Polygon  \n\
     [Paraswap](https://paraswap.io/#/?network=polygon) is also available and will route your swaps through the cheapest path.  \n\
     * Depositing your assets on [Aave](https://app.aave.com/dashboard) or [Curve](https://polygon.curve.fi/) to farm some fresh MATIC  \n\
+    * Enjoying the same functionalities Ethereum has, only with less friction 🦄  \n\
     ";
 
   return (
