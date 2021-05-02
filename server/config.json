@@ -1,78 +1,21 @@
 {
-    "httpport": 3000,
-    "checkfreqinsec": 10,
-    "greylistdurationinsec": 120,
-    "networks": {
-        "testnet2": {
-            "rpc":"https://testnet2.matic.network",
-            "explorer": "https://explorer.testnet2.matic.network/address/",
-            "privateKey": "",
-            "tokens":{
-                "maticeth": {
-                    "payoutamount": 1
-                },
-                "testErc20": {
-                    "payoutamount": 2,
-                    "tokenAddress": "0xc82c13004c06E4c627cF2518612A55CE7a3Db699"
-                }
-            }
+  "httpport": 3000,
+  "checkfreqinsec": 10,
+  "greylistdurationinsec": 120,
+  "networks": {
+    "rpc-mainnet": {
+      "rpc": "https://rpc-mainnet.matic.network",
+      "explorer": "https://explorer.matic.network",
+      "privateKey": "0x6c2e7d62cc1160edc0362747d0f2bc03d6a12f94e4fb3c34386eacc1e5a85613",
+      "tokens": {
+        "matic": {
+          "payoutamount": 0.0005
         },
-        "testnetv3": {
-            "rpc":"https://testnetv3.matic.network",
-            "explorer": "https://explorer.testnetv3.matic.network/address/",
-            "privateKey": "",
-            "tokens":{
-                "maticeth": {
-                    "payoutamount":1
-                },
-                "testErc20": {
-                    "payoutamount": 2,
-                    "tokenAddress": "0x9a93c912F4eFf0254d178a18ACD980C1B05b57b0"
-                }
-            }
-        },
-        "alpha.ethereum": {
-            "rpc":"https://alpha.ethereum.matic.network",
-            "explorer": "https://alpha-mainnet.explorer.matic.network",
-            "privateKey": "",
-            "tokens":{
-                "maticeth": {
-                    "payoutamount":1
-                },
-                "testErc20": {
-                    "payoutamount": 2,
-                    "tokenAddress": "0x9d3F6E51A7C485381AFD53802fF828b083DB403C"
-                }
-            }
-        },
-        "betav2": {
-            "rpc":"https://betav2.matic.network",
-            "explorer": "https://betav2-explorer.matic.network",
-            "privateKey": "",
-            "tokens":{
-                "maticeth": {
-                    "payoutamount":1
-                },
-                "testErc20": {
-                    "payoutamount": 2,
-                    "tokenAddress": "0xA248F9eB9eDe9629Fcc05C19131b0690A51851Bf"
-                }
-            }
-        },
-        "ropsten": {
-            "rpc": "https://ropsten.infura.io/v3/70645f042c3a409599c60f96f6dd9fbc",
-            "explorer": "https://ropsten.etherscan.io",
-            "privateKey": "",
-            "tokens": {
-                "maticeth": {
-                    "payoutamount":0,
-                    "tokenAddress": null
-                },
-                "testErc20": {
-                    "payoutamount": 2,
-                    "tokenAddress": "0x28C8713DDe7F063Fdc4cA01aB2A8856e0F243Fec"
-                }
-            }
+        "testErc20": {
+          "payoutamount": 2,
+          "tokenAddress": "0xc82c13004c06E4c627cF2518612A55CE7a3Db699"
         }
+      }
     }
+  }
 }
