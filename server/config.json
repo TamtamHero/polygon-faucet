@@ -10,10 +10,6 @@
       "tokens": {
         "matic": {
           "payoutamount": 0.0005
-        },
-        "testErc20": {
-          "payoutamount": 2,
-          "tokenAddress": "0xc82c13004c06E4c627cF2518612A55CE7a3Db699"
         }
       }
     }
