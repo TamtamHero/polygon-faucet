@@ -42,7 +42,7 @@ function App() {
           })}
         />
         <LoadButton
-          text={Number(accountManager.balance) > config.get("maxAmount") ? "Balance too high" : "Receive"}
+          text={Number(accountManager.balance) >= config.get("maxAmount") ? "Balance too high" : "Receive"}
           loadingText="Sending..."
           color="#8248e5"
           disabled={Number(accountManager.balance) > config.get("maxAmount") || captcha === ""}
@@ -53,7 +53,6 @@ function App() {
               setTxLink(hash);
             })
             .catch((error) => {
-              toast.error(`${error} 🙅`)
               toast.error(`${error.response.data.err.message} 🙅`)})
           }
         />

@@ -245,7 +245,7 @@ async function startTransfer(ip, address, token, amount, network) {
         return Promise.reject(values)
     }
 
-    let balanceException = await getAccountBalance(address) > config.networks[network].tokens[token].maxbalance;
+    let balanceException = await getAccountBalance(address) >= config.networks[network].tokens[token].maxbalance;
     if(balanceException){
         console.log(address, "has a too high balance");
         var values = {
