@@ -78,7 +78,7 @@ function App() {
           <p>
             A modest Web App built by <a href="https://github.com/TamtamHero" target="_blank" rel="noopener noreferrer">TamtamHero</a> with React, hosted on Github. v
             {`${packageJson.version}`}.{" "}
-            <a href="https://github.com/LedgerHQ/passwords-backup">
+            <a href="https://github.com/TamtamHero/polygon-faucet/">
               PRs welcomed and appreciated ✨
             </a>
           </p>
