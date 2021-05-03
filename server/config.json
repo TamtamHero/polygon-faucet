@@ -2,11 +2,12 @@
   "httpport": 3000,
   "checkfreqinsec": 10,
   "greylistdurationinsec": 120,
+  "hcaptchasecret": "YOUR_HCAPTCHA_SECRET",
   "networks": {
     "rpc-mainnet": {
       "rpc": "https://rpc-mainnet.matic.network",
       "explorer": "https://explorer.matic.network",
-      "privateKey": "0x6c2e7d62cc1160edc0362747d0f2bc03d6a12f94e4fb3c34386eacc1e5a85613",
+      "privateKey": "YOUR_PRIVATE_KEY",
       "tokens": {
         "matic": {
           "payoutamount": 0.0005,

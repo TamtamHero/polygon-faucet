@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import config from "react-global-configuration";
 import configuration from './config.json';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 config.set(configuration);
 
@@ -19,6 +20,7 @@ function App() {
   const [account, setAccount] = useState("Not connected");
   const [balance, setBalance] = useState(0);
   const [txLink, setTxLink] = useState("");
+  const [captcha, setCaptcha] = useState("");
 
   return (
     <div className="App">
@@ -40,21 +42,29 @@ function App() {
           })}
         />
         <LoadButton
-          text="Receive"
+          text={Number(accountManager.balance) > config.get("maxAmount") ? "Balance too high" : "Receive"}
           loadingText="Sending..."
           color="#8248e5"
-          disabled={Number(accountManager.balance) > config.get("maxAmount")}
+          disabled={Number(accountManager.balance) > config.get("maxAmount") || captcha === ""}
           hidden={account === "Not connected"}
-          onClick={() => faucetClaim(account)
+          onClick={() => faucetClaim(account, captcha)
             .then((hash) => {
               toast.success("Transaction sent!");
               setTxLink(hash);
             })
             .catch((error) => {
+              toast.error(`${error} 🙅`)
               toast.error(`${error.response.data.err.message} 🙅`)})
           }
         />
       </div>
+      <form id="receive" action="" method="POST">
+        <HCaptcha
+          theme="dark"
+          sitekey={config.get("hcaptchasitekey")}
+          onVerify={(token,ekey) => {setCaptcha(token)}}
+        />
+      </form>
       <p hidden={account === "Not connected"}>{account}</p>
       <p hidden={account === "Not connected"}>{balance}</p>
       <a hidden={txLink === ""} target="_blank" rel="noopener noreferrer" href={txLink}>{txLink}</a>

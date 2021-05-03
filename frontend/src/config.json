@@ -1,5 +1,6 @@
 {
-  "apiurl": "http://localhost:3000",
+  "apiurl": "http://backend.matic.supply:3000",
   "explorer": "https://explorer-mainnet.maticvigil.com",
-  "maxAmount": 500000000000000
+  "maxAmount": 500000000000000,
+  "hcaptchasitekey": "d712e7c4-b981-4761-bb8c-c7af95d016dd"
 }

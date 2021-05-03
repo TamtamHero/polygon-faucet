@@ -33,15 +33,15 @@ export default function AppExplanations() {
     Transactions on Polygon network are dirt cheap. Forget Ethereum, forget BSC, we're talking about fractions of a cent for most transactions.  \n\
     So this faucet will only send you `0.0005 MATIC` - which is enough to deposit some fund on Aave and [earn fresh MATIC](https://medium.com/stakingbits/guide-to-yield-farming-with-aave-on-polygon-matic-network-a03bd2154275), for instance  \n\
     The goal of this faucet is not to make you rich but just to make the onboarding to Polygon smoother.  \n\
-    Feel free to send some spare change at `0xCC2161DB3200EEF7E37E21542dA2F0179fB9c59A` to replenish the faucet once youre rich 🦄";
+    Feel free to send some spare change at `0x8C5a6C767Ee7084a8C656Acd457Da9561163aE7E` to replenish the faucet once youre rich 🦄";
 
-  const whatToDoOnPolygon_help =
+  const howToEarnMoreMatic_help =
     "* First bring your assets from Ethereum to Polygon through [the bridge](https://wallet.matic.network/bridge/)  \n\
     Then there's a variety of things you can do:  \n\
     * Swapping assets on [QuickSwap](https://quickswap.exchange/) or [ComethSwap](https://swap.cometh.io/#/swap), the equivalents of `Uniswap` on Polygon  \n\
     [Paraswap](https://paraswap.io/#/?network=polygon) is also available and will route your swaps through the cheapest path.  \n\
     * Depositing your assets on [Aave](https://app.aave.com/dashboard) or [Curve](https://polygon.curve.fi/) to farm some fresh MATIC  \n\
-    * Enjoying the same functionalities Ethereum has, only with less friction 🦄  \n\
+    * Enjoy the same functionalities Ethereum has, only with less friction 🦄  \n\
     ";
 
   return (
@@ -60,13 +60,13 @@ export default function AppExplanations() {
       <AccordionItem>
         <AccordionItemHeading>
           <AccordionItemButton>
-            What to do on Polygon ?
+            How to earn (much) more MATIC ?
           </AccordionItemButton>
         </AccordionItemHeading>
         <AccordionItemPanel>
           <ReactMarkdown
             className="Explanations"
-            children={whatToDoOnPolygon_help}
+            children={howToEarnMoreMatic_help}
           ></ReactMarkdown>
         </AccordionItemPanel>
       </AccordionItem>
