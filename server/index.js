@@ -1,12 +1,29 @@
 var express = require('express')
+const https = require('https')
+const fs = require('fs')
 const bodyParser = require('body-parser')
 const multer = require('multer') // v1.0.5
 const upload = multer() // for parsing multipart/form-data
 var cors = require("cors");
 var app = express();
-app.use(cors());
+//app.use(cors());
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded())
+
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', 'https://matic.supply');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
+
+https.createServer({
+  key: fs.readFileSync('server.key'),
+  cert: fs.readFileSync('server.cert')
+}, app).listen(3000, () => {
+  console.log('Listening...')
+})
 
 const axios = require("axios")
 
@@ -102,12 +119,6 @@ async function getTokenInfo() {
     return tokenInfo
 }
 
-// start webserver
-app.listen(config.httpport, function() {
-    console.log('faucet listening on port', config.httpport, '...')
-})
-
-app.use(cors());
 
 //frontend app serving directory
 // app.use(express.static("static/build"));
@@ -188,9 +199,8 @@ setInterval(() => {
     cleanupExceptions('matic')
 }, config.checkfreqinsec * 100);
 
-app.post("/", upload.array(), function(req, res) {
-    console.log(req.body);
-    let captcha = req.body.captcha
+app.get("/:network/:token/:address/:captcha", function(req, res) {
+    let captcha = req.params.captcha
     axios
     .post("https://hcaptcha.com/siteverify",{
         secret: config.hcaptchasecret,
@@ -200,9 +210,9 @@ app.post("/", upload.array(), function(req, res) {
         if (response.status === 200) {
             var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
             console.log("client IP=", ip);
-            let network = req.body.network
-            let token = req.body.token
-            let address = req.body.account
+            let network = req.params.network
+            let token = req.params.token
+            let address = req.params.address
             let amount = config.networks[network].tokens[token].payoutamount
             if (!isAddress(fixaddress(address))) {
                 // invalid addr
@@ -221,9 +231,9 @@ app.post("/", upload.array(), function(req, res) {
                 // either tx error/ greylisted
                 console.log("ERROR:500")
                 console.log(e)
-                // return res.status(500).json({
-                //     err: e
-                // });
+                return res.status(500).json({
+                     err: e
+                });
             })
         }
     });
