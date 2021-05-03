@@ -37,15 +37,19 @@ class AccountManager {
     }
   }
 
-  async getBalance(formatted = true) {
-    const decimals = 18;
-    this.balance = await this.web3.eth.getBalance(String(this.account));
-    let balance_BN = this.web3.utils.toBN(this.balance);
+  getFormattedBalance(balance, decimals){
+    let balance_BN = this.web3.utils.toBN(balance);
     let decimals_BN = this.web3.utils.toBN(10**decimals);
     let before_comma = balance_BN.div(decimals_BN).toString();
     let after_comma = balance_BN.mod(decimals_BN).toString();
     after_comma = after_comma.padStart(decimals, "0");
-    this.formatted_balance = before_comma + "." + after_comma + " MATIC";
+    return before_comma + "." + after_comma + " MATIC";
+  }
+
+  async getBalance(formatted = true) {
+    const decimals = 18;
+    this.balance = await this.web3.eth.getBalance(String(this.account));
+    this.formatted_balance = this.getFormattedBalance(this.balance, decimals);
     return formatted ? this.formatted_balance : this.balance;
   }
 

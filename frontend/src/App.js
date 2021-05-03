@@ -47,15 +47,17 @@ function App() {
           })}
         />
         <LoadButton
-          text={Number(accountManager.balance) >= config.get("maxAmount") ? "Balance too high" : "Receive"}
+          text={Number(balance) >= config.get("maxAmount") ? "Balance too high" : "Receive"}
           loadingText="Sending..."
           color="#8248e5"
-          disabled={Number(accountManager.balance) > config.get("maxAmount") || captcha === ""}
+          disabled={Number(balance) >= config.get("maxAmount") || captcha === ""}
           hidden={account === "Not connected"}
           onClick={() => faucetClaim(account, captcha)
             .then((hash) => {
               toast.success("Transaction sent!");
               setTxLink(hash);
+              setBalance(accountManager.getFormattedBalance(Number(accountManager.balance+config.get("maxAmount")), 18));
+              setCaptcha("");
             })
             .catch((error) => {
               toast.error(`${error.response.data.err.message} 🙅`)})
@@ -70,7 +72,7 @@ function App() {
         />
       </form>
       <p hidden={account === "Not connected"}>{account}</p>
-      <p hidden={account === "Not connected"}>{balance}</p>
+      <p hidden={account === "Not connected"}>{"Your balance: " + String(balance)}</p>
       <a hidden={txLink === ""} target="_blank" rel="noopener noreferrer" href={txLink}>{txLink}</a>
       <br></br>
       <AppExplanations></AppExplanations>
