@@ -37,8 +37,13 @@ function App() {
           color="#8248e5"
           hidden={account !== "Not connected"}
           onClick={() => accountManager.connect().then((account) => {
-            setAccount(account);
-            accountManager.getBalance().then((balance) => {setBalance(balance)});
+            if(!account){
+              toast.error(`Wrong network: Please select Matic/Polygon network first`)
+            }
+            else{
+              setAccount(account);
+              accountManager.getBalance().then((balance) => {setBalance(balance)});
+            }
           })}
         />
         <LoadButton

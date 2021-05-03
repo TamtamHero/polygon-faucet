@@ -1,5 +1,7 @@
 import Web3 from "web3";
 
+const MATIC_NETWORK = 137;
+
 class AccountManager {
   constructor() {
     this.connected = false;
@@ -7,6 +9,7 @@ class AccountManager {
     this.web3Provider = null;
     this.web3 = null;
     this.balance = 0;
+    this.network = 0;
   }
 
   async connect() {
@@ -21,12 +24,15 @@ class AccountManager {
           });
         } catch (error) {
           // User denied account access...
-          console.error("User denied account access");
+          console.error(`User denied account access: ${error}`);
         }
         this.web3 = new Web3(this.web3Provider);
-        this.connected = true;
-        console.log(`connected: ${this.account} ${typeof this.account}`);
-        return this.account;
+        this.network = await this.web3.eth.net.getId();
+        if(this.network == MATIC_NETWORK){
+          this.connected = true;
+          console.log(`connected: ${this.account} ${typeof this.account}`);
+          return this.account;
+        }
       }
     }
   }
