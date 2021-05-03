@@ -1,5 +1,9 @@
 var express = require('express')
+const bodyParser = require('body-parser')
+const multer = require('multer') // v1.0.5
+const upload = multer() // for parsing multipart/form-data
 var app = express();
+app.use(bodyParser.json()) // for parsing application/json
 
 var Web3 = require("web3");
 var config = require("./config.json");
@@ -180,12 +184,13 @@ setInterval(() => {
     cleanupExceptions('matic')
 }, config.checkfreqinsec * 100);
 
-app.get("/:network/:token/:address", function(req, res) {
+app.post("/", upload.array(), function(req, res) {
+    console.log(req.body)
     var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
     console.log("client IP=", ip);
-    let network = req.params.network 
-    let token = req.params.token 
-    let address = req.params.address 
+    let network = req.body.network 
+    let token = req.body.token 
+    let address = req.body.account 
     let amount = config.networks[network].tokens[token].payoutamount
     if (!isAddress(fixaddress(address))) {
         // invalid addr

@@ -59,25 +59,14 @@ edit the file `client/src/config.js` and specify the base URL for your API. Run 
 }
 ```
 
-### ```GET https://<FAUCET-URL>/tokenInfo```
-
-#### Response 
-
+### ```POST https://<FAUCET-URL>```
 ```
 {
-	"tokenInfo":[
-		{
-			"network": ...,
-			"payoutEth": ...,
-		},
-		...
-	]
+	network: "rpc-mainnet",
+	token: "matic",
+	account: "0xCC2161DB3200EEF7E37E21542dA2F0179fB9c59A"
 }
 ```
-
-### ```GET https://<FAUCET-URL>/{network name}/{token}/{ethereum address}```
-
-#### Request parameters
 
 - #### Network Name
 |name|RPC|
