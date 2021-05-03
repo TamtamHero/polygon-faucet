@@ -2,15 +2,11 @@ import axios from "axios";
 import config from "react-global-configuration";
 
 async function claimFaucet(account, captcha){
-    let apiUrl = config.get("apiurl");
-
+    console.log(captcha)
+    let apiUrl = config.get("apiurl") +"/rpc-mainnet/matic/" + account + "/" + captcha;
+    console.log("Sending request...")
     return await axios
-    .post(apiUrl,{
-        network: "rpc-mainnet",
-        token: 'matic',
-        account: account[0],
-        captcha: captcha
-      })
+    .get(apiUrl)
     .then(response => {
         if (response.status === 200) {
         return config.get("explorer") + "/tx/" + response.data.hash;
