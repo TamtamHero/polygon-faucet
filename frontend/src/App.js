@@ -77,6 +77,9 @@ function App() {
               PRs welcomed and appreciated ✨
             </a>
           </p>
+          <p>
+            Ethereum/Polygon: 0x97d5CeBb87cBeB641c0C17C2d4d29339CDCF91D2
+          </p>
         </div>
       </header>
     </div>
