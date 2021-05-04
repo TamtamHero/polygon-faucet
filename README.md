@@ -6,7 +6,7 @@ supports MATIC transfers on Polygon mainnet
 
 - payout frequency: 120 seconds
 - server check frequency: 10 seconds
-- max amount on account to be able to claim: 0.0005 MATIC (same as payout)
+- max amount on account to be able to claim: 0.001 MATIC (same as payout)
 
 (configured in `server/config.json`)
 

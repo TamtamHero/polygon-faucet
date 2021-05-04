@@ -38,8 +38,8 @@ export default function AppExplanations() {
     // eslint-disable-next-line
     "`Plenty enough!`  \n\
     Transactions on Polygon network are dirt cheap. Forget Ethereum, forget BSC, we're talking about fractions of a cent for most transactions.  \n\
-    So this faucet will only send you `0.0005 MATIC` - which is enough to deposit some fund on Aave and [earn fresh MATIC](https://medium.com/stakingbits/guide-to-yield-farming-with-aave-on-polygon-matic-network-a03bd2154275), for instance  \n\
-    With `0.0005 MATIC`, you can do `50` basic transactions on Polygon network ! You can even deposit funds on `Aave` 2 times, even though it is a pretty expensive transaction (`50$+` on Ethereum, `1$+` on Binance Smart Chain). \n\
+    So this faucet will only send you `0.001 MATIC` - which is enough to deposit some fund on Aave and [earn fresh MATIC](https://medium.com/stakingbits/guide-to-yield-farming-with-aave-on-polygon-matic-network-a03bd2154275), for instance  \n\
+    With `0.001 MATIC`, you can do `100` basic transactions on Polygon network ! You can even deposit or withdraw funds on `Aave`, even though it is a pretty expensive transaction (`50$+` on Ethereum, `1$+` on Binance Smart Chain). \n\
     The goal of this faucet is not to make you rich but just to make the onboarding to Polygon smoother.  \n\
     Feel free to send some spare change at `0x8C5a6C767Ee7084a8C656Acd457Da9561163aE7E` to replenish the faucet once youre rich 🦄";
 
