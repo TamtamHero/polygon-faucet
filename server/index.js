@@ -19,8 +19,9 @@ app.use(function (req, res, next) {
 });
 
 https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
+  key: fs.readFileSync('privkey.pem'),
+  cert: fs.readFileSync('cert.pem'),
+  ca: fs.readFileSync('chain.pem')
 }, app).listen(3000, () => {
   console.log('Listening...')
 })
@@ -199,15 +200,23 @@ setInterval(() => {
     cleanupExceptions('matic')
 }, config.checkfreqinsec * 100);
 
+const axios_config = {
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+}
+
 app.get("/:network/:token/:address/:captcha", function(req, res) {
     let captcha = req.params.captcha
+
+    const params = new URLSearchParams()
+    params.append('secret', config.hcaptchasecret)
+    params.append('response', captcha)
+
     axios
-    .post("https://hcaptcha.com/siteverify",{
-        secret: config.hcaptchasecret,
-        response: captcha
-    })
+    .post("https://hcaptcha.com/siteverify",params, axios_config)
     .then(response => {
-        if (response.status === 200) {
+        if (response.status === 200 && response.data.success == true) {
             var ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
             console.log("client IP=", ip);
             let network = req.params.network
