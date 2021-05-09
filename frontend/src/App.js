@@ -76,18 +76,18 @@ function App() {
       <a hidden={txLink === ""} target="_blank" rel="noopener noreferrer" href={txLink}>{txLink}</a>
       <br></br>
       <AppExplanations></AppExplanations>
-        <div className="App-footer">
-          <p>
-            A modest Web App built by <a href="https://github.com/TamtamHero" target="_blank" rel="noopener noreferrer">TamtamHero</a> with React, hosted on Github. v
-            {`${packageJson.version}`}.{" "}
-            <a href="https://github.com/TamtamHero/polygon-faucet/">
-              PRs welcomed and appreciated ✨
-            </a>
-          </p>
-          <p>
-            Ethereum/Polygon: 0x97d5CeBb87cBeB641c0C17C2d4d29339CDCF91D2
-          </p>
-        </div>
+      <div className="App-footer">
+        <p>
+          A modest Web App built by <a href="https://github.com/TamtamHero" target="_blank" rel="noopener noreferrer">TamtamHero</a> with React, hosted on Github. v
+          {`${packageJson.version}`}.{" "}
+          <a href="https://github.com/TamtamHero/polygon-faucet/">
+            PRs welcomed and appreciated ✨
+          </a>
+        </p>
+        <p>
+          Ethereum/Polygon donation: <a h href="https://explorer-mainnet.maticvigil.com/address/0x97d5CeBb87cBeB641c0C17C2d4d29339CDCF91D2/transactions" target="_blanc" rel="noopener noreferrer">0x97d5CeBb87cBeB641c0C17C2d4d29339CDCF91D2</a>
+        </p>
+      </div>
       </header>
     </div>
   );

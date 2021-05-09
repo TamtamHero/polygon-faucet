@@ -2,11 +2,13 @@
   text-align: center;
 }
 
-html {background-color: #232123}
+html {
+  background-color: #232123;
+}
 
 .App-banner {
-  margin-top: 10vh;
-  margin-bottom: 10vh;
+  margin-top: 7vh;
+  margin-bottom: 7vh;
   justify-content: center;
   display: flex;
   flex-direction: row;
@@ -44,7 +46,6 @@ html {background-color: #232123}
   margin-bottom: 6vh;
   display: flex;
   flex-direction: row;
-
 }
 
 .Toastify__toast-container {
@@ -52,9 +53,9 @@ html {background-color: #232123}
 }
 
 .App-footer a {
-    color: #61dafb;
-    text-decoration: none;
-  }
+  color: #61dafb;
+  text-decoration: none;
+}
 
 @media only screen and (orientation: landscape) {
   .App-footer {
