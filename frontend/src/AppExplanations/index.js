@@ -41,6 +41,7 @@ export default function AppExplanations() {
     So this faucet will only send you `0.001 MATIC` - which is enough to deposit some fund on Aave and [earn fresh MATIC](https://medium.com/stakingbits/guide-to-yield-farming-with-aave-on-polygon-matic-network-a03bd2154275), for instance  \n\
     With `0.001 MATIC`, you can do `100` basic transactions on Polygon network ! You can even deposit or withdraw funds on `Aave`, even though it is a pretty expensive transaction (`50$+` on Ethereum, `1$+` on Binance Smart Chain). \n\
     The goal of this faucet is not to make you rich but just to make the onboarding to Polygon smoother.  \n\
+    You can use it up to `3 times a day`, for the most clumsy of us 🙄  \n\
     Feel free to send some spare change at `0x8C5a6C767Ee7084a8C656Acd457Da9561163aE7E` to replenish the faucet once you're rich 🦄";
 
   const howToEarnMoreMatic_help =
