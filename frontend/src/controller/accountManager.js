@@ -1,4 +1,6 @@
 import Web3 from "web3";
+import Web3Modal from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const MATIC_NETWORK = 137;
 
@@ -14,25 +16,38 @@ class AccountManager {
 
   async connect() {
     if (!this.connected) {
-      if (window.ethereum) {
-        this.web3Provider = window.ethereum;
-        try {
-          // Request account access
-          this.account = await this.web3Provider.request({
-            method: "eth_requestAccounts",
-            params: [],
-          });
-        } catch (error) {
-          // User denied account access...
-          console.error(`User denied account access: ${error}`);
+      const providerOptions = {
+        walletconnect: {
+          package: WalletConnectProvider, // required
+          options: {
+            infuraId: "INFURA_ID" // required
+          }
         }
-        this.web3 = new Web3(this.web3Provider);
-        this.network = await this.web3.eth.net.getId();
-        if(this.network == MATIC_NETWORK){
-          this.connected = true;
-          console.log(`connected: ${this.account} ${typeof this.account}`);
-          return this.account;
-        }
+      };
+
+      const web3Modal = new Web3Modal({
+        network: "mainnet", // optional
+        cacheProvider: true, // optional
+        providerOptions // required
+      });
+
+      this.web3Provider = await web3Modal.connect();
+      try {
+        // Request account access
+        this.account = await this.web3Provider.request({
+          method: "eth_requestAccounts",
+          params: [],
+        });
+      } catch (error) {
+        // User denied account access...
+        console.error(`User denied account access: ${error}`);
+      }
+      this.web3 = new Web3(this.web3Provider);
+      this.network = await this.web3.eth.net.getId();
+      if(this.network == MATIC_NETWORK){
+        this.connected = true;
+        console.log(`connected: ${this.account} ${typeof this.account}`);
+        return this.account;
       }
     }
   }
