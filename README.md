@@ -1,6 +1,8 @@
 # Polygon mainnet faucet server/frontend
 
-built upon: https://github.com/sponnet/locals-faucetserver and https://github.com/nglglhtr/matic-faucet
+App available at [matic.supply](https://matic.supply)
+
+built upon: [locals-faucetserver](https://github.com/sponnet/locals-faucetserver) and [matic-faucet](https://github.com/nglglhtr/matic-faucet)
 
 supports MATIC transfers on Polygon mainnet
 
