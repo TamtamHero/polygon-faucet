@@ -44,6 +44,7 @@ const db = {}
 db['matic'] = dbEthExceptions
 
 const greylistduration = config.greylistdurationinsec * 1000; // time in ms
+const claimintervalinsec = config.claimintervalinsec * 1000; // time in ms
 
 // check for valid Eth address
 function isAddress(address) {
@@ -156,29 +157,36 @@ function getException(address, token) {
                 return reject(err)
             }
             value = JSON.parse(value)
-            resolve(value)
+            return resolve(value);
         })
     })
 }
 
 function setException(address, token){
     console.log("adding", address, "to greylist")
-    return new Promise((resolve, reject) => {
-        db[token].put(
-            address, 
-            JSON.stringify({
-                created: Date.now(),
-                reason: 'greylist', 
-                address: address
-            }),
-            function(err) {
-                if (err) {
-                    return reject(err);
+    let claimCount = 1;
+    return getException(address, token).then((exception) => {
+        if(exception){
+            claimCount = claimCount + exception.claimCount;
+        }
+        return new Promise((resolve, reject) => {
+            db[token].put(
+                address, 
+                JSON.stringify({
+                    created: Date.now(),
+                    reason: 'greylist', 
+                    address: address,
+                    claimCount: claimCount
+                }),
+                function(err) {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve();
                 }
-                resolve();
-            }
-        )
-    })
+            )
+        })
+    });
 }
 
 function cleanupExceptions(token) {
@@ -254,12 +262,21 @@ async function startTransfer(ip, address, token, amount, network) {
 
     let exception = addressException || ipException
 
-    if (exception) {
+    if (exception && exception.claimCount >= 3) {
         console.log(exception.address, "is on the greylist");
         var values = {
             address: exception.address,
-            message: "This account has already received funds",
+            message: "This account has already received funds 3 times today, come back tomorrow",
             duration: (exception.created + greylistduration) - Date.now()
+        }
+        return Promise.reject(values)
+    }
+    else if(exception && exception.created > Date.now() - claimintervalinsec) {
+        console.log(exception.address, "has aleady claimed in the past 15 minutes");
+        var values = {
+            address: exception.address,
+            message: "This account has already received funds in the last 15 minutes",
+            duration: (exception.created + claimintervalinsec) - Date.now()
         }
         return Promise.reject(values)
     }
@@ -290,7 +307,6 @@ async function transferEth(_to, _amount, network) {
     let web3 = web3Objects[network]
     let _from = web3.eth.accounts.wallet[0].address
     let _gasPrice = await web3.eth.getGasPrice();
-    console.log("gasprice is ", _gasPrice);
     let amt = (_amount * Math.pow(10, 18)).toString()
     var options = {
         from: _from,
@@ -299,7 +315,7 @@ async function transferEth(_to, _amount, network) {
         gas: 314150,
         gasPrice: _gasPrice
     }
-    console.log(options);
+    console.log(options.to);
     let r = await web3.eth.sendTransaction(options)
                   .on('receipt', (receipt) => {
                       console.log('transfer successful!', receipt.transactionHash)

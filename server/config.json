@@ -2,6 +2,7 @@
   "httpport": 3000,
   "checkfreqinsec": 10,
   "greylistdurationinsec": 120,
+  "claimintervalinsec": 1800,
   "hcaptchasecret": "YOUR_HCAPTCHA_SECRET",
   "networks": {
     "rpc-mainnet": {
