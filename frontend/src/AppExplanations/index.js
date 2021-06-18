@@ -30,7 +30,7 @@ export default function AppExplanations() {
   const whatIsAFaucet_help =
     // eslint-disable-next-line
     "A `Faucet` is a tool that provides a small amount of funds to start using a cryptocurrency without having to buy some. \n\
-    It's often a shity website with plenty of adds that will send you funds half the time, only after asking you to input your email to send you spam later.  \n\
+    It's often a shity website with plenty of ads that will send you funds half the time, only after asking you to input your email to send you spam later.  \n\
     `Polygon` had none for its mainnet, so here's one, without the crap you usually get on typical faucets";
 
 
