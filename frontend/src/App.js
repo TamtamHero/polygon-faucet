@@ -37,10 +37,9 @@ function App() {
           color="#8248e5"
           hidden={account !== "Not connected"}
           onClick={() => accountManager.connect().then((account) => {
-            if(!account){
-              toast.error(`Wrong network: Please select Matic/Polygon network first`)
-            }
-            else{
+            if (!account) {
+              toast.error(`Wrong network: Please select Matic/Polygon network first`);
+            } else {
               setAccount(account);
               accountManager.getBalance().then((balance) => {setBalance(balance)});
             }
@@ -60,7 +59,13 @@ function App() {
               setCaptcha("");
             })
             .catch((error) => {
-              toast.error(`${error.response.data.err.message} 🙅`)})
+              console.log(error);
+
+              if (error.response && error.response.data) {
+                toast.error(`${error.response.data.err.message} 🙅`)});
+              } else {
+                toast.error(error.message);
+              }
           }
         />
       </div>
