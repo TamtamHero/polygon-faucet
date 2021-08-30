@@ -85,7 +85,7 @@ function App() {
           </a>
         </p>
         <p>
-          Ethereum/Polygon donation: <a h href="https://explorer-mainnet.maticvigil.com/address/0x97d5CeBb87cBeB641c0C17C2d4d29339CDCF91D2/transactions" target="_blanc" rel="noopener noreferrer">0x97d5CeBb87cBeB641c0C17C2d4d29339CDCF91D2</a>
+          Ethereum/Polygon donation: <a h href="https://polygonscan.com/address/0x97d5CeBb87cBeB641c0C17C2d4d29339CDCF91D2/transactions" target="_blanc" rel="noopener noreferrer">0x97d5CeBb87cBeB641c0C17C2d4d29339CDCF91D2</a>
         </p>
       </div>
       </header>
