@@ -6,7 +6,7 @@ const multer = require('multer') // v1.0.5
 const upload = multer() // for parsing multipart/form-data
 var cors = require("cors");
 var app = express();
-//app.use(cors());
+app.use(cors());
 app.use(bodyParser.json()) // for parsing application/json
 app.use(bodyParser.urlencoded())
 
