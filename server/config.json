@@ -6,7 +6,7 @@
   "hcaptchasecret": "YOUR_HCAPTCHA_SECRET",
   "networks": {
     "rpc-mainnet": {
-      "rpc": "https://rpc-mainnet.matic.network",
+      "rpc": "https://polygon-rpc.com",
       "explorer": "https://polygonscan.com",
       "privateKey": "YOUR_PRIVATE_KEY",
       "tokens": {
