@@ -1,7 +1,7 @@
 {
   "httpport": 3000,
   "checkfreqinsec": 10,
-  "greylistdurationinsec": 120,
+  "greylistdurationinsec": 86400,
   "claimintervalinsec": 1800,
   "hcaptchasecret": "YOUR_HCAPTCHA_SECRET",
   "networks": {
