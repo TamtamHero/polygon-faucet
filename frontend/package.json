@@ -1,7 +1,7 @@
 {
   "homepage": "https://matic.supply",
   "name": "polygon-faucet-frontend",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^0.3.6",
