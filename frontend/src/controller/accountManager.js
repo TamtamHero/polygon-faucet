@@ -21,6 +21,9 @@ class AccountManager {
           package: WalletConnectProvider, // required
           options: {
             infuraId: "INFURA_ID" // required
+          },
+          rpc: {
+            137: "https://polygon-rpc.com" // required
           }
         }
       };
