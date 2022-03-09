@@ -21,7 +21,7 @@ address and ip are 'greylisted' right after a successful transaction - for 60 se
 ```
 $ git clone https://github.com/tamtamhero/matic-faucet
 $ cd matic-faucet && cd server && npm install
-$ cd .. && cd client && npm install
+$ cd .. && cd frontend && npm install
 $ cd ..
 ```
 
