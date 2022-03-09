@@ -37,7 +37,7 @@ node index.js
 
 ## Configuring the faucet frontend
 
-edit the file `client/src/config.js` and specify the base URL for your API. Run `npm run start`
+edit the file `frontend/src/config.js` and specify the base URL for your API. Run `npm run start`
 
 # API
 
