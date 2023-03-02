@@ -1,6 +1,6 @@
-# Polygon mainnet faucet server/frontend
+# DEPRECATED - Polygon mainnet faucet server/frontend
 
-App available at https://matic.supply
+~~App available at https://matic.supply~~ APP DEPRECATED
 
 built upon: [locals-faucetserver](https://github.com/sponnet/locals-faucetserver) and [matic-faucet](https://github.com/nglglhtr/matic-faucet)
 
